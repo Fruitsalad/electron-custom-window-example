@@ -5,7 +5,10 @@ const {vec2, sub, max} = Vec2;
 // minimum window size.
 const MIN_WINDOW_SIZE = vec2(10, 10);
 
-export function DragBorders(node: HTMLElement, drag_region_width: number) {
+// After calling this function, clicking and dragging on the given `node` will
+// resize the window. The parameter `drag_region_width` determines how thick the
+// draggable edges are (that's especially relevant for the behaviour of corners)
+export function init_drag_borders(node: HTMLElement, drag_region_width: number) {
   let is_dragging = false;
   let drag_device = -1;
   let drag_start_pos = vec2(0, 0);  // In desktop space
@@ -34,7 +37,7 @@ export function DragBorders(node: HTMLElement, drag_region_width: number) {
     // Determine the drag region (which window edge or corner was clicked).
     const region = get_drag_region(vec2(e.x, e.y));
 
-    // Start dragging. (Mostly store info for later in `on_pointer_move`)
+    // Start dragging. (Just storing info for later use in `on_pointer_move`)
     // @ts-ignore  window.main
     const bounds = await window.main.get_window_bounds();
     is_dragging = true;

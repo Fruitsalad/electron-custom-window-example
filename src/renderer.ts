@@ -1,7 +1,7 @@
 import './index.css';
 import './drag_resize.css';
 import feather from 'feather-icons';
-import {DragBorders} from "./drag_resize";
+import {init_drag_borders} from "./drag_resize";
 import {explode_at} from "./explode";
 import {Vec2} from "./math";
 const {vec2, add, div} = Vec2;
@@ -11,7 +11,7 @@ console.log("Renderer script starting");
 const $ = (id: string) => document.getElementById(id);
 
 // Custom window-resizing borders.
-DragBorders($("resize_borders"), 10);
+init_drag_borders($("resize_borders"), 10);
 
 // Titlebar buttons.
 $("window_minimize").onclick = () => window.main.minimize();
