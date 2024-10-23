@@ -29,9 +29,8 @@ feather.replace();
 
 // Add a particle effect for when you click the logo button.
 // (Completely unnecessary but I wanted something to happen when you click it)
-const logo_button = $("app_icon");
-if (document.body.animate)
-  logo_button.onclick = () => explode_at(get_center(logo_button));
+$("app_icon").onclick = () => explode_at(get_center($("app_icon")));
+$("search_button").onclick = () => explode_at(get_center($("search_button")));
 
 function get_center(node: HTMLElement): Vec2 {
   const rect = node.getBoundingClientRect();

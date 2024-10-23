@@ -57,7 +57,7 @@ body {
   gap: 0;
 }
 
-#titlebar button {
+#titlebar button, #titlebar button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +70,7 @@ body {
 #titlebar button:hover,
 /*#titlebar button:focus,*/
 #search_bar_area:hover button,
-#search_bar_area:focus-within button{
+#search_bar_area:focus-within button {
   color: var(--accent-highlight);
 }
 
