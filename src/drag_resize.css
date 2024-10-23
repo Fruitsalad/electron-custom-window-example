@@ -1,0 +1,103 @@
+:root {
+    --drag-border-width: 8px;
+}
+
+#resize_borders {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+#resize_visuals {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 4px solid orangered;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+#resize_topleft {
+    position: absolute;
+    pointer-events: all;
+    cursor: nw-resize;
+    top: 0;
+    left: 0;
+    height: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
+
+#resize_topright {
+    position: absolute;
+    pointer-events: all;
+    cursor: ne-resize;
+    top: 0;
+    right: 0;
+    height: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
+
+#resize_bottomleft {
+    position: absolute;
+    pointer-events: all;
+    cursor: sw-resize;
+    bottom: 0;
+    left: 0;
+    height: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
+
+#resize_bottomright {
+    position: absolute;
+    pointer-events: all;
+    cursor: se-resize;
+    bottom: 0;
+    right: 0;
+    height: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
+
+#resize_top {
+    position: absolute;
+    pointer-events: all;
+    cursor: n-resize;
+    top: 0;
+    left: var(--drag-border-width);
+    right: var(--drag-border-width);
+    height: var(--drag-border-width);
+}
+
+#resize_bottom {
+    position: absolute;
+    pointer-events: all;
+    cursor: s-resize;
+    bottom: 0;
+    left: var(--drag-border-width);
+    right: var(--drag-border-width);
+    height: var(--drag-border-width);
+}
+
+#resize_left {
+    position: absolute;
+    pointer-events: all;
+    cursor: w-resize;
+    left: 0;
+    top: var(--drag-border-width);
+    bottom: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
+
+#resize_right {
+    position: absolute;
+    pointer-events: all;
+    cursor: e-resize;
+    right: 0;
+    top: var(--drag-border-width);
+    bottom: var(--drag-border-width);
+    width: var(--drag-border-width);
+}
