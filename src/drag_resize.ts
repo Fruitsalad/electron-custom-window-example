@@ -1,11 +1,11 @@
 import {Vec2} from './math';
-const {vec2, add, sub, mult, div, min, max} = Vec2;
+const {vec2, sub, max} = Vec2;
 
-
+// This isn't strictly necessary, because Electron itself already ensures a
+// minimum window size.
 const MIN_WINDOW_SIZE = vec2(10, 10);
 
-
-export function DragBorders(node: HTMLElement, region_width: number) {
+export function DragBorders(node: HTMLElement, drag_region_width: number) {
   let is_dragging = false;
   let drag_device = -1;
   let drag_start_pos = vec2(0, 0);  // In desktop space
@@ -25,15 +25,16 @@ export function DragBorders(node: HTMLElement, region_width: number) {
     if (e.button !== 0 || !e.isPrimary)
       return;
 
-    // Capture the pointer.
+    // Capture the pointer. This way we still get pointer events if the cursor
+    // leaves the window.
     // @ts-ignore  setPointerCapture
     if (e.target.setPointerCapture)  // @ts-ignore  setPointerCapture
       e.target.setPointerCapture(e.pointerId);
 
-    // Get the clicked region (which border/corner was clicked).
+    // Determine the drag region (which window edge or corner was clicked).
     const region = get_drag_region(vec2(e.x, e.y));
 
-    // Start dragging.
+    // Start dragging. (Mostly store info for later in `on_pointer_move`)
     // @ts-ignore  window.main
     const bounds = await window.main.get_window_bounds();
     is_dragging = true;
@@ -54,13 +55,16 @@ export function DragBorders(node: HTMLElement, region_width: number) {
     if (!is_dragging || get_device(e) !== drag_device)
       return;
 
+    // Determine the cursor's difference in position since the start of the drag
     const cursor_pos = vec2(e.screenX, e.screenY);
     const diff = sub(cursor_pos, drag_start_pos);
 
+    // Use that difference to calculate new window bounds.
     const {pos, size} = determine_new_bounds(
       drag_start_window_pos, drag_start_window_size, diff, drag_region
     );
 
+    // Move & resize the window.
     // @ts-ignore
     window.main.set_window_bounds({
       x: pos.x, y: pos.y, width: size.x, height: size.y
@@ -107,9 +111,9 @@ export function DragBorders(node: HTMLElement, region_width: number) {
   }
 
   function get_drag_region_1D(x: number, width: number): number {
-    if (x <= region_width)
+    if (x < drag_region_width)
       return -1;
-    if (x >= width - region_width)
+    if (x >= width - drag_region_width)
       return 1;
     return 0;
   }

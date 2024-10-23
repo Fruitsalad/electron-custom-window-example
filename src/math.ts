@@ -26,16 +26,24 @@ export class Vec2 {
 
   // Arithmetic
 
-  public static add(a: Vec2, b: Vec2): Vec2 {
+  public static add(a: Vec2, b: Vec2 | number): Vec2 {
+    if (typeof(b) === 'number')
+      return Vec2.vec2(a.x + b, a.y + b);
     return Vec2.vec2(a.x + b.x, a.y + b.y);
   }
-  public static sub(a: Vec2, b: Vec2): Vec2 {
+  public static sub(a: Vec2, b: Vec2 | number): Vec2 {
+    if (typeof(b) === 'number')
+      return Vec2.vec2(a.x - b, a.y - b);
     return Vec2.vec2(a.x - b.x, a.y - b.y);
   }
-  public static mult(a: Vec2, b: Vec2): Vec2 {
+  public static mult(a: Vec2, b: Vec2 | number): Vec2 {
+    if (typeof(b) === 'number')
+      return Vec2.vec2(a.x * b, a.y * b);
     return Vec2.vec2(a.x * b.x, a.y * b.y);
   }
-  public static div(a: Vec2, b: Vec2): Vec2 {
+  public static div(a: Vec2, b: Vec2 | number): Vec2 {
+    if (typeof(b) === 'number')
+      return Vec2.vec2(a.x / b, a.y / b);
     return Vec2.vec2(a.x / b.x, a.y / b.y);
   }
 

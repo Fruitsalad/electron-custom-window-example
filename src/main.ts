@@ -18,17 +18,23 @@ const createWindow = () => {
   //@ts-ignore  MAIN_WINDOW_VITE_NAME is also an environment variable
   const name = MAIN_WINDOW_VITE_NAME;
 
+  // On the Linux implementation of Electron, the `maximizable` boolean has no
+  // effect and windows can only be maximized if they are resizable.
+  const resizable = (process.platform === "linux");
+
   // Create the browser window.
   main_window = new BrowserWindow({
     width: 800,
     height: 600,
-    minWidth: 100,
-    minHeight: 100,
+    minWidth: 400,
+    minHeight: 300,
     frame: false,
-    resizable: false,
+    resizable,
+    maximizable: true,
+    transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-    },
+    }
   });
 
   // Load the index.html of the app.
@@ -70,21 +76,49 @@ app.on('activate', () => {
 
 
 function main() {
-  init_ipc();
+  init_ipc_part_1();
   createWindow();
+  init_ipc_part_2();
 }
 
-function init_ipc() {
+// Call this one before `main_window` is defined.
+function init_ipc_part_1() {
   ipcMain.on("set_window_bounds", (e, x, y, width, height) => {
     console.log("resize:", x, y, width, height);
     const old_size = main_window.getSize();
     const new_w = (width < 0 ? old_size[0] : width);
     const new_h = (height < 0 ? old_size[1] : height);
-    main_window.setMinimumSize(new_w, new_h);
     main_window.setBounds({x, y, width, height});
   });
+
   ipcMain.handle("get_window_bounds", e => {
     return main_window.getBounds();
   });
+
+  ipcMain.on("minimize", e => {
+    main_window.minimize();
+  });
+
+  ipcMain.on("toggle_maximized", e => {
+    if (main_window.isMaximized())
+      main_window.unmaximize()
+    else main_window.maximize();
+  });
+
+  ipcMain.on("close", e => {
+    main_window.close();
+  });
+}
+
+// Call this one after `main_window` is defined.
+function init_ipc_part_2() {
+  main_window.on("maximize", after_maximization_changed);
+  main_window.on("unmaximize", after_maximization_changed);
+
+  function after_maximization_changed() {
+    main_window.webContents.send(
+      "after_maximization_changed", main_window.isMaximized()
+    );
+  }
 }
 

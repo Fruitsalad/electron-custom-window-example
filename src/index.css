@@ -1,16 +1,131 @@
+:root {
+  --background: #353535;
+  --accent: #949494;
+  --accent-low: #7a7a7a;
+  --accent-highlight: #b8b8b8;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
-  margin: auto;
-  min-height: 100svh;
-  min-width: 100svw;
-  max-width: 38rem;
-  padding: 2rem;
+button, input {
+  background: none;
+  border: none;
+  outline: none;
 }
 
+.window_drag_region { -webkit-app-region: drag; }
+.spacer { flex-grow: 1; }
+.hidden-by-code { display: none !important; }
+
+body {
+  font-family: Ubuntu, Roboto, Helvetica, sans-serif;
+}
+
+#window_background {
+  /* `body` doesn't support `border-radius` for a transparent window, so we need
+   * to keep `body` transparent and use another div for the rounded rectangle */
+  border-radius: 8px;
+  background-color: var(--background);
+  min-height: 100vh;
+  min-width: 100vw;
+  max-width: 38rem;
+}
+
+#titlebar {
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  color: var(--accent);
+  /*color: #ccc;*/
+  /*font-weight: 700;*/
+}
+
+#titlebar .padded {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+#titlebar .buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+}
+
+#titlebar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  width: 50px;
+  height: 100%;
+  transition: color 0.15s ease;
+}
+
+#titlebar button:hover,
+/*#titlebar button:focus,*/
+#search_bar_area:hover button,
+#search_bar_area:focus-within button{
+  color: var(--accent-highlight);
+}
+
+#search_bar_area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/*#search_bar_area button {*/
+/*}*/
+
+#search_bar {
+  transition:
+          color 0.2s ease,
+          border-bottom-color 0.2s ease,
+          width 0.3s ease;
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  color: inherit;
+  font: inherit;
+  width: 100px;
+}
+
+#search_bar_area:hover #search_bar, #search_bar:focus {
+  color: var(--accent-highlight);
+  border-bottom-color: var(--accent-highlight);
+}
+
+#search_bar:focus {
+  width: 170px;
+}
+
+#search_bar::placeholder {
+  color: var(--accent-low);
+  transition: color 0.2s ease;
+}
+
+#search_bar:focus::placeholder {
+  color: transparent !important;
+}
+
+#search_bar::-webkit-search-cancel-button {
+  display: none;
+}
+
+#search_bar_area:hover #search_bar::placeholder {
+  color: var(--accent-highlight)
+}
+
+particle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}

@@ -6,21 +6,50 @@
 
   </head>
   <body>
-    <div id="titlebar">
-<!--      <button id="window_minimize">-</button>-->
-<!--      <button id="window_maximize">»</button>-->
-<!--      <button id="window_close">x</button>-->
-    </div>
-    <div id="resize_borders">
-      <div id="resize_topleft"></div>
-      <div id="resize_topright"></div>
-      <div id="resize_bottomleft"></div>
-      <div id="resize_bottomright"></div>
-      <div id="resize_top"></div>
-      <div id="resize_left"></div>
-      <div id="resize_right"></div>
-      <div id="resize_bottom"></div>
-      <div id="resize_visuals"></div>
+    <div id="window_background">
+      <div id="titlebar">
+        <!-- The app icon button in the top-left corner -->
+        <button id="app_icon">
+          <i data-feather="terminal"></i>
+        </button>
+
+        <!-- The search bar embedded in the titlebar -->
+        <div id="search_bar_area">
+          <button id="search_button">
+            <i data-feather="search"></i>
+          </button>
+          <input id="search_bar" placeholder="" type="search" />
+        </div>
+
+        <!-- A spacer. You can drag the window around by clicking on it. -->
+        <div class="spacer window_drag_region"></div>
+
+        <!-- A set of typical Windows-style window controls -->
+        <div class="buttons">
+          <button id="window_minimize">
+            <i data-feather="minus"></i>
+          </button>
+          <button id="window_maximize">
+            <i id="icon_maximize" data-feather="maximize-2"></i>
+            <i id="icon_unmaximize" data-feather="minimize-2" class="hidden-by-code"></i>
+          </button>
+          <button id="window_close">
+            <i data-feather="x"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resizable window border areas: Four corners and four edges -->
+      <div id="resize_borders">
+        <div id="resize_topleft"></div>
+        <div id="resize_topright"></div>
+        <div id="resize_bottomleft"></div>
+        <div id="resize_bottomright"></div>
+        <div id="resize_top"></div>
+        <div id="resize_bottom"></div>
+        <div id="resize_left"></div>
+        <div id="resize_right"></div>
+      </div>
     </div>
     <script type="module" src="/src/renderer.ts"></script>
   </body>
