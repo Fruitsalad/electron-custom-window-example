@@ -1,4 +1,4 @@
-import {Vec2} from './math';
+import Vec2 from './vec2';
 const {vec2, sub, max} = Vec2;
 
 // This isn't strictly necessary, because Electron itself already ensures a

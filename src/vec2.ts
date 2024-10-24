@@ -1,4 +1,4 @@
-export class Vec2 {
+export default class Vec2 {
   elems: Array<number> = [0, 0];
   
   get x() { return this.elems[0]; }

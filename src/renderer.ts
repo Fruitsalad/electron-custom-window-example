@@ -4,7 +4,7 @@ import './drag_resize.css';
 import feather from 'feather-icons';
 import {init_drag_borders} from "./drag_resize";
 import {explode_at} from "./explode";
-import {Vec2} from "./math";
+import Vec2 from "./vec2";
 const {vec2, add, div} = Vec2;
 
 console.log("Renderer script starting");

@@ -1,5 +1,5 @@
 // This file contains a completely unnecessary particle effect.
-import {Vec2} from "./math";
+import Vec2 from "./vec2";
 const {vec2, add, sub, div, mult} = Vec2;
 
 export function explode_at(pos: Vec2) {
