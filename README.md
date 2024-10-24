@@ -51,6 +51,10 @@ npm start  # Run the app
 │  The root folder contains mostly configuration files for NPM, Electron Forge,
 │  Vite and Typescript. Those files aren't very interesting.
 │
+├── README.md
+│     The file you're reading right now!
+├── LICENSE.md
+│     Some copyright law stuff. You can freely use the example code.
 ├── index.html
 │     The HTML of the app.
 ├── assets
