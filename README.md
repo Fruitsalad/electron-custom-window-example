@@ -1,8 +1,8 @@
 
 ![](example_screenshot.png)
 
-# Custom windows example for Electron
-***An example app showing how to add custom window decorations to an Electron app***
+# Custom window example for Electron
+***An example app showing how to make custom window decorations in Electron***
 
 This is an example of an Electron app that has a custom titlebar as well as
 cross-platform window resizing in a transparent window.
