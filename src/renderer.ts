@@ -11,6 +11,9 @@ console.log("Renderer script starting");
 
 const $ = (id: string) => document.getElementById(id);
 
+// Insert icons into the page.
+feather.replace();
+
 // Custom window-resizing borders.
 init_drag_borders($("resize_borders"), 10);
 
@@ -25,13 +28,18 @@ window.main.after_maximization_changed(is_maximized => {
   $("icon_unmaximize").classList.toggle("hidden-by-code", !is_maximized);
 });
 
-// Insert icons into the page.
-feather.replace();
+// Search form.
+$("search_bar_area").onsubmit = e => {
+  console.log("Submitted");
+  e.preventDefault();
+  explode_at(get_center($("search_button")));
+};
+$("search_button").onclick = () =>
+  ($("search_bar_area") as HTMLFormElement).requestSubmit();
 
 // Add a particle effect for when you click the logo button.
 // (Completely unnecessary but I wanted something to happen when you click it)
 $("app_icon").onclick = () => explode_at(get_center($("app_icon")));
-$("search_button").onclick = () => explode_at(get_center($("search_button")));
 
 function get_center(node: HTMLElement): Vec2 {
   const rect = node.getBoundingClientRect();

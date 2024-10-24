@@ -50,7 +50,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  main_window.webContents.openDevTools();
+  // main_window.webContents.openDevTools();
 };
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -83,27 +83,19 @@ function main() {
 
 // Call this function before `main_window` is defined.
 function init_ipc_part_1() {
-  ipcMain.on("set_window_bounds", (e, x, y, width, height) => {
+  ipcMain.on("set_window_bounds", (_, x, y, width, height) => {
     main_window.setBounds({x, y, width, height});
   });
 
-  ipcMain.handle("get_window_bounds", e => {
-    return main_window.getBounds();
-  });
-
-  ipcMain.on("minimize", e => {
-    main_window.minimize();
-  });
-
-  ipcMain.on("toggle_maximized", e => {
+  ipcMain.on("toggle_maximized", _ => {
     if (main_window.isMaximized())
       main_window.unmaximize()
     else main_window.maximize();
   });
 
-  ipcMain.on("close", e => {
-    main_window.close();
-  });
+  ipcMain.handle("get_window_bounds", _ => main_window.getBounds());
+  ipcMain.on("minimize", _ => main_window.minimize());
+  ipcMain.on("close", _ => main_window.close());
 }
 
 // Call this function after `main_window` is defined.
