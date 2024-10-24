@@ -1,2 +1,3 @@
-x resizing
-- titlebar
+- typescript definitions for context bridge
+- code review
+- tutorial thing?

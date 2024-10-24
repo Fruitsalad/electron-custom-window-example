@@ -1,5 +1,6 @@
 import './index.css';
 import './drag_resize.css';
+// @ts-ignore  feather-icons doesn't support Typescript
 import feather from 'feather-icons';
 import {init_drag_borders} from "./drag_resize";
 import {explode_at} from "./explode";

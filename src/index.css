@@ -1,8 +1,16 @@
+@font-face {
+  font-family: 'Karla';
+  src: url('./Karla-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --background: #353535;
   --accent: #949494;
   --accent-low: #7a7a7a;
   --accent-highlight: #b8b8b8;
+  --titlebar_height: 45px;
 }
 
 * {
@@ -22,12 +30,16 @@ button, input {
 .hidden-by-code { display: none !important; }
 
 body {
-  font-family: Ubuntu, Roboto, Helvetica, sans-serif;
+  font-family: 'Karla', Ubuntu, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 #window_background {
   /* `body` doesn't support `border-radius` for a transparent window, so we need
    * to keep `body` transparent and use another div for the rounded rectangle */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   border-radius: 8px;
   background-color: var(--background);
   min-height: 100vh;
@@ -38,7 +50,7 @@ body {
 #titlebar {
   display: flex;
   flex-direction: row;
-  height: 45px;
+  height: var(--titlebar_height);
   color: var(--accent);
   /*color: #ccc;*/
   /*font-weight: 700;*/
@@ -85,9 +97,9 @@ body {
 
 #search_bar {
   transition:
-          color 0.2s ease,
-          border-bottom-color 0.2s ease,
-          width 0.3s ease;
+      color 0.2s ease,
+      border-bottom-color 0.2s ease,
+      width 0.3s ease;
   border: none;
   border-bottom: 2px solid var(--accent);
   color: inherit;
@@ -119,6 +131,26 @@ body {
 
 #search_bar_area:hover #search_bar::placeholder {
   color: var(--accent-highlight)
+}
+
+#window_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  color: var(--accent);
+}
+
+#window_content p {
+  max-width: 20em;
+  text-align: center;
+  line-height: 1.4;
+}
+
+#window_content .special_spacer {
+  flex-shrink: 1;
+  height: var(--titlebar_height);
 }
 
 particle {

@@ -25,12 +25,14 @@ export function init_drag_borders(node: HTMLElement, drag_region_width: number) 
 
   async function on_pointer_down(e: PointerEvent) {
     // Should be the primary button of the primary pointer.
+    // (note that we don't check to see if we're already dragging, because
+    //  starting a new drag during another drag doesn't break anything)
     if (e.button !== 0 || !e.isPrimary)
       return;
 
     // Capture the pointer. This way we still get pointer events if the cursor
     // leaves the window.
-    // @ts-ignore  setPointerCapture
+    // @ts-ignore  `setPointerCapture` is allowed to be `undefined`
     if (e.target.setPointerCapture)  // @ts-ignore  setPointerCapture
       e.target.setPointerCapture(e.pointerId);
 
@@ -38,7 +40,6 @@ export function init_drag_borders(node: HTMLElement, drag_region_width: number) 
     const region = get_drag_region(vec2(e.x, e.y));
 
     // Start dragging. (Just storing info for later use in `on_pointer_move`)
-    // @ts-ignore  window.main
     const bounds = await window.main.get_window_bounds();
     is_dragging = true;
     drag_device = get_device(e);
@@ -49,7 +50,7 @@ export function init_drag_borders(node: HTMLElement, drag_region_width: number) 
   }
 
   function on_pointer_up(e: PointerEvent) {
-    if (get_device(e) === drag_device || e.button === 0)
+    if (get_device(e) === drag_device && e.button === 0)
       is_dragging = false;
   }
 
@@ -62,20 +63,19 @@ export function init_drag_borders(node: HTMLElement, drag_region_width: number) 
     const cursor_pos = vec2(e.screenX, e.screenY);
     const diff = sub(cursor_pos, drag_start_pos);
 
-    // Use that difference to calculate new window bounds.
+    // Use that difference to calculate the new window bounds.
     const {pos, size} = determine_new_bounds(
       drag_start_window_pos, drag_start_window_size, diff, drag_region
     );
 
     // Move & resize the window.
-    // @ts-ignore
     window.main.set_window_bounds({
       x: pos.x, y: pos.y, width: size.x, height: size.y
     });
   }
 
   function get_device(e: PointerEvent) {
-    // @ts-ignore  Undefined is handled by the coalescing operator.
+    // @ts-ignore  `e.persistentDeviceId` is allowed to be `undefined`
     return e.persistentDeviceId ?? e.pointerId;
   }
 
@@ -93,6 +93,8 @@ export function init_drag_borders(node: HTMLElement, drag_region_width: number) 
     };
   }
 
+  // Given the window position and size in a certain dimension, calculate its
+  // new position and size after dragging it a (signed) distance of `diff`.
   function get_new_bounds_1D(
     x: number, width: number, diff: number, drag_region: number
   ): Array<number> {
