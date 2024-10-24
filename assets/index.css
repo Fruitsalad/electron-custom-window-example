@@ -139,7 +139,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  color: var(--accent);
+  color: var(--accent-highlight);
 }
 
 #window_content p {
