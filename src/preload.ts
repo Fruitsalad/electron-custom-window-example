@@ -18,7 +18,7 @@ contextBridge.exposeInMainWorld("main", {
   toggle_maximized() {
     ipcRenderer.send("toggle_maximized");
   },
-  after_maximization_changed(callback: Function) {
+  after_maximization_changed(callback: (is_maximized: boolean) => void) {
     ipcRenderer.on("after_maximization_changed", (_, is_maximized) => {
       callback(is_maximized)
     });

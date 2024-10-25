@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
+
 export default class Vec2 {
   elems: Array<number> = [0, 0];
   
@@ -10,7 +12,7 @@ export default class Vec2 {
   // Constructors
 
   public static vec2(x: number, y: number): Vec2 {
-    let result = new Vec2();
+    const result = new Vec2();
     result.x = x;
     result.y = y;
     return result;

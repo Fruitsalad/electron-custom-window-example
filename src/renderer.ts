@@ -1,5 +1,5 @@
-import '/assets/index.css';
-import '/assets/drag_resize.css';
+import '/assets/index.css';  // eslint-disable-line import/no-unresolved
+import '/assets/drag_resize.css';  // eslint-disable-line import/no-unresolved
 // @ts-ignore  feather-icons doesn't support Typescript
 import feather from 'feather-icons';
 import {init_drag_borders} from "./drag_resize";
