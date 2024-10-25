@@ -1,5 +1,7 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
+// @ts-expect-error  Squirrel has no Typescript support.
+import squirrel from 'electron-squirrel-startup';
 
 // I really don't like the error dialog that Electron gives you when there's an
 // error in the main process, so just log the error in debug builds.
@@ -14,9 +16,8 @@ if (!is_production_build) {
 // ### Electron Forge's Vite Typescript template ###
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
+if (squirrel)
   app.quit();
-}
 
 let main_window: BrowserWindow;
 
